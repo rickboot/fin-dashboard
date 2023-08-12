@@ -22,9 +22,40 @@ Folder structure
 
 
 Redux
-- centralized state for apps
+- predictable centralized state for javascript apps
 - works on client, server, and native
 - works with any ui layer and framework 
 - easy to test and debug
 - has large ecosystem of add-ons
 - has libs for React - react-redux and redux toolkit
+
+store is created via createStore (? configureStore)
+- takes in reducer
+ 
+reducer is created via combineReducers - 
+- takes in a object of functions that run whenever dispatch is called
+- the return value is the apps new state
+
+dispatch 
+- takes in type and item 
+
+store is immutable
+one way dataflow
+
+
+action -> reducer -> store
+   ^                   |
+   |                   v
+dispatch <- APP <- subscribe
+
+mongoDB
+
+mongoose
+- use latest ^7
+
+npm
+- npm upgrade
+- npm uninstall
+
+cors issues
+- remember app.use middleware are functions! - cors(), morgan(), helmet(), etc. 
