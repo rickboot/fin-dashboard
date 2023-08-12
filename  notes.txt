@@ -1,0 +1,30 @@
+TypeScript
+- Interface...
+
+React
+- useMemo
+- useContext
+- useReducer
+
+Vite ('veet')
+- like create-react-app -> webpack and babel?
+
+Material UI
+- ThemeContext
+- can use css props in mui components
+? why palette.grey[100] instead of palette.primary.grey[100] - because of TS module augmentation?
+
+Emotion
+- css lib
+
+Folder structure
+- What is the default react structure?
+
+
+Redux
+- centralized state for apps
+- works on client, server, and native
+- works with any ui layer and framework 
+- easy to test and debug
+- has large ecosystem of add-ons
+- has libs for React - react-redux and redux toolkit
