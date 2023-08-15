@@ -1,5 +1,5 @@
-import BoxHeader from '@/components/BoxHeader';
-import DashboardBox from '@/components/DashboardBox';
+import { useMemo } from 'react';
+import { useTheme } from '@mui/material';
 import {
   Area,
   AreaChart,
@@ -14,19 +14,19 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { useTheme } from '@mui/material';
-import { useMemo } from 'react';
+import BoxHeader from '@/components/BoxHeader';
+import DashboardBox from '@/components/DashboardBox';
 import { useGetKpisQuery } from '@/state/api';
 
 const Row1 = () => {
   const { palette } = useTheme();
 
-  const { data } = useGetKpisQuery();
+  const { data: kpiData } = useGetKpisQuery();
 
   const monthlyData = useMemo(() => {
     return (
-      data &&
-      data[0].monthlyData.map(
+      kpiData &&
+      kpiData[0].monthlyData.map(
         ({
           month,
           revenue,
@@ -38,14 +38,14 @@ const Row1 = () => {
             name: month.substring(0, 3),
             revenue,
             expenses,
-            operationalExpenses,
-            nonOperationalExpenses,
+            'Operational Expenses': operationalExpenses,
+            'Non-Operational Expenses': nonOperationalExpenses,
             profit: (revenue - expenses).toFixed(2),
           };
         }
       )
     );
-  }, [data]);
+  }, [kpiData]);
 
   return (
     <>
@@ -156,9 +156,7 @@ const Row1 = () => {
 
             <Legend
               height={30}
-              wrapperStyle={{
-                margin: '0 10px 0 0',
-              }}
+              wrapperStyle={{ fontSize: '10px', margin: '0 10px 0 0' }}
             />
 
             <Line
@@ -272,12 +270,13 @@ const Row1 = () => {
               height={30}
               wrapperStyle={{
                 margin: '0 10px 0 0',
+                fontSize: '10px',
               }}
             />
 
             <Line
               type='monotone'
-              dataKey='operationalExpenses'
+              dataKey='Operational Expenses'
               stroke={palette.tertiary[500]}
               dot={{
                 strokeWidth: 1,
@@ -287,7 +286,7 @@ const Row1 = () => {
             />
             <Line
               type='monotone'
-              dataKey='nonOperationalExpenses'
+              dataKey='Non-Operational Expenses'
               stroke={palette.primary.main}
               dot={{
                 strokeWidth: 1,

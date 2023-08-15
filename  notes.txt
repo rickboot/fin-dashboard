@@ -52,6 +52,13 @@ mongoDB
 
 mongoose
 - use latest ^7
+- Schema creates template
+- Model creates instance (not a data entry)
+  - responsible for creating and reading documents from the underlying MongoDB database. 
+- use model instance insertMany inserts documents 
+- Schema (template) > Model (create/reads/updates/deletes) > document(s)
+
+use model() not Model() 
 
 npm
 - npm upgrade
@@ -91,12 +98,16 @@ Full-stack steps
 
 RTK
 - TS
+- RTK createApi defines hooks to corresponding endpoints to fetch/transform redux state
+- RTK fetchBaseQuery is a wrapper around fetch that simplifies requests
 
 TypeScript
 - Generics
 
 
-
 FinanceSeer
 - getKPI can be called once
 - url(#colorRevenue) has to be unique per page - 2nd def does nothing?
+- buyer should be String 
+- separate code for seeding?
+- biaxial charts are confusing without different colors

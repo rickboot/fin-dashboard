@@ -1,7 +1,5 @@
 export interface KpiData {
   id: string;
-  // _id: string;
-  // __v: number;
   totalExpenses: number;
   totalProfit: number;
   totalRevenue: number;
@@ -30,4 +28,24 @@ export interface DailyData {
   date: string;
   expenses: number;
   revenue: number;
+}
+
+export interface ProductData {
+  id: string;
+  _id: string;
+  __v: number;
+  price: number;
+  expense: number;
+  transactions: Array<string>;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TransactionData {
+  _id: string;
+  amount: number;
+  buyer: string;
+  productIds: Array<string>;
+  createdAt: string;
+  updatedAt: string;
 }
