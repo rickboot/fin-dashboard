@@ -59,3 +59,44 @@ npm
 
 cors issues
 - remember app.use middleware are functions! - cors(), morgan(), helmet(), etc. 
+
+
+Full-stack steps
+- create features list
+- create wireframe
+- create folder structure
+  - client
+    - src 
+      - components
+      - pages or scenes
+      - state
+  - backend
+    - models
+    - routes
+    - data
+
+- build client
+- build server
+  - node.js
+  - express
+    - cors
+    - body parser
+    - morgan logging
+    - helmet security?
+- build db
+  - mongodb or whatever
+  - ORM or ODM (mongoose)
+  - set up cloud account if any
+  - seed data
+
+RTK
+- TS
+
+TypeScript
+- Generics
+
+
+
+FinanceSeer
+- getKPI can be called once
+- url(#colorRevenue) has to be unique per page - 2nd def does nothing?
