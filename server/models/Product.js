@@ -22,7 +22,7 @@ const ProductSchema = mongoose.Schema(
       },
     ],
   },
-  { timestamps: true, toJSON: { getter: true } }
+  { timestamps: true, toJSON: { getters: true } }
 );
 
 const Product = mongoose.model('Product', ProductSchema);

@@ -75,7 +75,7 @@ const KPISchema = new mongoose.Schema(
     monthlyData: [monthSchema],
     dailyData: [daySchema],
   },
-  { timestamps: true, toJSON: { getter: true } }
+  { timestamps: true, toJSON: { getters: true } }
 );
 
 const KPI = mongoose.model('KPI', KPISchema);

@@ -45,7 +45,7 @@ mongoose
   .then(async () => {
     app.listen(PORT, () => console.log(`Server port ${PORT}`));
 
-    //! seed dummy data - run one time only!!!
+    //! seed dummy data to mongoDB cloud - run one time only
     // await mongoose.connection.db.dropDatabase();
     // KPI.insertMany(kpis).then(() => console.log('kpis inserted!'));
     // Product.insertMany(products).then(() => console.log('products inserted!'));
