@@ -24,15 +24,12 @@ const Row2 = () => {
   const { data: opsData } = useGetProductsQuery();
 
   const productData = useMemo(() => {
-    return (
-      // opsData &&
-      opsData?.map(({ price, expense }) => {
-        return {
-          price,
-          expense,
-        };
-      })
-    );
+    return opsData?.map(({ price, expense }) => {
+      return {
+        price,
+        expense,
+      };
+    });
   }, [opsData]);
 
   const pieData = [
@@ -46,47 +43,69 @@ const Row2 = () => {
     <>
       <DashboardBox gridArea='e'>
         <BoxHeader title='Campaigns and Targets' sideText='4%' />
-        <FlexBetween gap='1.5rem'>
-          <Box flexBasis='30%' display='flex' justifyContent='end'>
-            <ResponsiveContainer width='100%' height={100}>
-              <PieChart>
-                <Toolbar />
+        <Box
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          height='80%'
+          width='100%'
+        >
+          <FlexBetween mt='0.25rem' gap='0.5rem' pr='1rem' width='100%'>
+            <Box
+              flexBasis='33%'
+              display='flex'
+              alignItems='center'
+              justifyContent='center'
+            >
+              <PieChart
+                width={110}
+                height={100}
+                margin={{
+                  top: 0,
+                  right: 10,
+                  left: 10,
+                  bottom: 0,
+                }}
+              >
                 <Pie
-                  data={pieData}
-                  dataKey='value'
-                  innerRadius='20'
-                  outerRadius='40'
                   stroke='none'
+                  data={pieData}
+                  innerRadius={18}
+                  outerRadius={38}
+                  paddingAngle={2}
+                  dataKey='value'
                 >
                   {pieData.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={pieColors[index]} />
                   ))}
                 </Pie>
               </PieChart>
-            </ResponsiveContainer>
-          </Box>
-          <Box flexBasis='40%' textAlign='center'>
-            <Typography variant='h5'>Target Sales</Typography>
-            <Typography
-              m='0.3rem'
-              variant='h3'
-              style={{ color: palette.primary[300] }}
-            >
-              84
-            </Typography>
-            <Typography variant='h6' style={{ color: palette.grey[600] }}>
-              Finance goals of the campaign
-            </Typography>
-          </Box>
-
-          <Box flexBasis='30%'>
-            <Typography variant='h5'>Loss of Revenue</Typography>{' '}
-            <Typography variant='h6'>Losses are down 25%</Typography>
-            <Box mt='.2rem'></Box>
-            <Typography variant='h5'>Profit Margin</Typography>{' '}
-            <Typography variant='h6'>Margins are up 30%</Typography>
-          </Box>
-        </FlexBetween>
+            </Box>
+            <Box flexBasis='33%' textAlign='center'>
+              <Typography variant='h5'>Target Sales</Typography>
+              <Typography
+                m='0.3rem 0'
+                variant='h3'
+                color={palette.primary[300]}
+              >
+                83
+              </Typography>
+              <Typography variant='h6'>
+                Finance goals of the campaign that is desired
+              </Typography>
+            </Box>
+            <Box flexBasis='33%'>
+              <Typography variant='h5'>Losses in Revenue</Typography>
+              <Typography variant='h6'>Losses are down 25%</Typography>
+              <Typography mt='0.4rem' variant='h5'>
+                Profit Margins
+              </Typography>
+              <Typography variant='h6'>
+                Margins are up by 30% from last month.
+              </Typography>
+            </Box>
+          </FlexBetween>
+        </Box>
       </DashboardBox>
 
       <DashboardBox gridArea='f'>
