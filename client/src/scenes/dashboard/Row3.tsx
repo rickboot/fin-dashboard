@@ -9,7 +9,7 @@ import {
 import { Box, Typography, useTheme } from '@mui/material';
 import { DataGrid, GridCellParams } from '@mui/x-data-grid';
 import { useMemo } from 'react';
-import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { Cell, Pie, PieChart } from 'recharts';
 
 const Row3 = () => {
   const { palette } = useTheme();

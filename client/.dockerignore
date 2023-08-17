@@ -24,6 +24,4 @@ dist-ssr
 *.sln
 *.sw?
 
-Dockerfile
-fly.toml
 notes.txt

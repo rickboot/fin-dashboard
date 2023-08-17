@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Box, Toolbar, Typography, useTheme } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import {
   CartesianGrid,
   Cell,
