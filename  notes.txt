@@ -58,7 +58,8 @@ mongoose
 - use model instance insertMany inserts documents 
 - Schema (template) > Model (create/reads/updates/deletes) > document(s)
 
-use model() not Model() 
+! use model() not Model() 
+! getters NOT getter otherwise getters for data will not work
 
 npm
 - npm upgrade
@@ -98,11 +99,14 @@ Full-stack steps
 
 RTK
 - TS
-- RTK createApi defines hooks to corresponding endpoints to fetch/transform redux state
-- RTK fetchBaseQuery is a wrapper around fetch that simplifies requests
+- createApi defines hooks to corresponding endpoints to fetch/transform redux state
+- fetchBaseQuery is a wrapper around fetch that simplifies requests
+- can call useGet methods multiple times without hitting backend multiple times
 
 TypeScript
 - Generics
+
+force/cast type (varName as Array<string>).toString() or (objName instanceof ObjType)
 
 
 FinanceSeer
@@ -111,3 +115,8 @@ FinanceSeer
 - buyer should be String 
 - separate code for seeding?
 - biaxial charts are confusing without different colors
+
+! _id with Data-Grid
+! Data-Grid header elements for sort 
+
+! mongoose-currency is old and has not been maintained since 2015. Requires package.json override to allow current mongoose versions

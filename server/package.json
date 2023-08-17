@@ -23,5 +23,10 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "overrides": {
+    "mongoose-currency": {
+      "mongoose": "^7.4.3"
+    }
   }
 }
