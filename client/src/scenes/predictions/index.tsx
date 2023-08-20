@@ -40,9 +40,7 @@ const Predictions = () => {
         month: month.substring(0, 3),
         'Actual Revenue': revenue,
         'Regression Line': regressionLine.points[monthNum][1],
-        'Predicted Revenue (+12 months)': regressionLine.predict(
-          monthNum + 12
-        )[1],
+        'Predicted Revenue': regressionLine.predict(monthNum + 12)[1],
       };
     });
   }, [kpiData]);
