@@ -1,98 +1,136 @@
-import { Box, useTheme } from '@mui/material';
+import { useMemo, useState } from 'react';
+import { Box, Button, Typography, useTheme } from '@mui/material';
 import {
   CartesianGrid,
+  Label,
+  Legend,
+  Line,
   LineChart,
   ResponsiveContainer,
-  Scatter,
   Tooltip,
   XAxis,
   YAxis,
-  ZAxis,
 } from 'recharts';
 import regression, { DataPoint } from 'regression';
-
 import DashboardBox from '@/components/DashboardBox';
+import FlexBetween from '@/components/FlexBetween';
 import { useGetKpisQuery } from '@/state/api';
-// import { useState } from 'react';
 
 const Predictions = () => {
-  // const { isPredition, setIsPrediction } = useState(false);
+  const [isPredition, setIsPrediction] = useState(false);
   const { palette } = useTheme();
 
   const { data: kpiData } = useGetKpisQuery();
 
-  const processedData = () => {
+  const formattedData = useMemo(() => {
     if (!kpiData) return [];
 
     const monthlyData = kpiData[0].monthlyData;
 
-    const dataPoints: Array<DataPoint> = monthlyData.map(
+    const sourceData: Array<DataPoint> = monthlyData.map(
       ({ revenue }, monthNum) => {
         return [monthNum, revenue];
       }
     );
 
-    const regressionLine = regression.linear(dataPoints);
-    
-    return regressionLine;
+    const regressionLine = regression.linear(sourceData);
+
+    return monthlyData.map(({ month, revenue }, monthNum) => {
+      return {
+        month: month.substring(0, 3),
+        'Actual Revenue': revenue,
+        'Regression Line': regressionLine.points[monthNum][1],
+        'Predicted Revenue': regressionLine.predict(monthNum + 12)[1],
+      };
+    });
   }, [kpiData]);
 
-  console.log(processedData);
-
   return (
-    <Box color='red'>
-      <DashboardBox></DashboardBox>
-      {/* <ResponsiveContainer width='100%' height='100%'>
-        <LineChart
-          margin={{
-            top: 20,
-            right: 25,
-            bottom: 40,
-            left: -10,
+    <DashboardBox width='100%' height='100%' padding='1rem'>
+      <FlexBetween m='1rem 2.5rem' gap='1rem'>
+        <Box>
+          <Typography variant='h3'>Revenue and Predictions</Typography>
+          <Typography variant='h6'>
+            charted revenue and predicted revenue based on linear regression
+          </Typography>
+        </Box>
+        <Button
+          onClick={() => setIsPrediction(!isPredition)}
+          sx={{
+            color: palette.grey[900],
+            backgroundColor: palette.grey[700],
+            boxShadow: '0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,.4)',
           }}
         >
-          <CartesianGrid stroke={palette.grey[800]} strokeDasharray='3 2' />
+          Show Predicted Revenue
+        </Button>
+      </FlexBetween>
 
-          <XAxis
-            type='monthNum'
-            dataKey='month'
-            name='month'
-            axisLine={false}
-            tickLine={false}
-            style={{ fontSize: '10px' }}
-            // tickFormatter={(v) => `$${v}`}
-          />
+      <ResponsiveContainer width='100%' height='100%'>
+        <LineChart
+          data={formattedData}
+          margin={{
+            top: 20,
+            right: 60,
+            left: 20,
+            bottom: 100,
+          }}
+        >
+          <CartesianGrid strokeDasharray='3 3' stroke={palette.grey[800]} />
+
+          <XAxis dataKey='month' tickLine={false} style={{ fontSize: '10px' }}>
+            <Label value='Month' position='insideBottom' offset={-20} />
+          </XAxis>
+
           <YAxis
-            type='number'
-            dataKey='expense'
-            name='expense'
-            axisLine={false}
-            tickLine={false}
+            domain={[12000, 26000]}
+            axisLine={{ strokeWidth: '0' }}
             style={{ fontSize: '10px' }}
             tickFormatter={(v) => `$${v}`}
-          />
-          <ZAxis type='number' range={[20]} />
+          >
+            <Label
+              value='Revenue (USD)'
+              position='insideLeft'
+              offset={-10}
+              angle={-90}
+            />
+          </YAxis>
 
-          <Tooltip
-            formatter={(v) => `$${v}`}
-            cursor={{ strokeDasharray: '3 3' }}
+          <Line
+            type='monotone'
+            dataKey='Actual Revenue'
+            stroke={palette.primary.main}
+            strokeWidth={0}
+            dot={{
+              strokeWidth: 5,
+            }}
           />
 
-          <Scatter
-            name='Product Expense Ratio'
-            data={processedData}
-            fill={palette.tertiary[500]}
+          <Line
+            type='monotone'
+            dataKey='Regression Line'
+            stroke={palette.tertiary[500]}
+            dot={false}
+          />
+
+          {!isPredition && (
+            <Line
+              type='monotone'
+              dataKey='Predicted Revenue'
+              stroke={palette.secondary[500]}
+              strokeDasharray='5 5'
+            />
+          )}
+
+          <Tooltip />
+          <Legend
+            verticalAlign='top'
+            wrapperStyle={{ paddingBottom: '10px' }}
           />
         </LineChart>
-      </ResponsiveContainer> */}
-    </Box>
+      </ResponsiveContainer>
+    </DashboardBox>
   );
 };
 
 export default Predictions;
-function useMemo(
-  arg0: () => void,
-  arg1: (import('../../state/types').KpiData[] | undefined)[]
-) {
-  throw new Error('Function not implemented.');
-}
